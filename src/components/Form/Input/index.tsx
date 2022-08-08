@@ -1,6 +1,13 @@
-import React, { useState } from 'react';
-import { TextInputProps } from 'react-native';
-import { Control, Controller } from 'react-hook-form';
+import React, { useState } from 'react'
+import { TextInputProps } from 'react-native'
+import {
+  Control,
+  Controller,
+  DeepRequired,
+  FieldError,
+  FieldErrorsImpl,
+  Merge,
+} from 'react-hook-form'
 
 import {
   Container,
@@ -9,14 +16,14 @@ import {
   InputContainer,
   FormInput,
   ToggleShowPassButton,
-  Icon
-} from './styles';
+  Icon,
+} from './styles'
 
 interface Props extends TextInputProps {
-  control: Control;
-  name: string;
-  title: string;
-  error: string;
+  control: Control
+  name: string
+  title: string
+  error?: Merge<FieldError, FieldErrorsImpl<DeepRequired<any>>>
 }
 
 export function Input({
@@ -27,7 +34,7 @@ export function Input({
   secureTextEntry,
   ...rest
 }: Props) {
-  const [passwordHidden, setPasswordHidden] = useState(true);
+  const [passwordHidden, setPasswordHidden] = useState(true)
 
   return (
     <Container>
@@ -45,8 +52,10 @@ export function Input({
               secureTextEntry={secureTextEntry && passwordHidden}
             />
             {secureTextEntry && (
-              <ToggleShowPassButton onPress={() => setPasswordHidden(!passwordHidden)}>
-                <Icon name={passwordHidden ? "eye-off" : "eye"} />
+              <ToggleShowPassButton
+                onPress={() => setPasswordHidden(!passwordHidden)}
+              >
+                <Icon name={passwordHidden ? 'eye-off' : 'eye'} />
               </ToggleShowPassButton>
             )}
           </InputContainer>
